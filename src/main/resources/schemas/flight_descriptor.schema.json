@@ -1,0 +1,97 @@
+{
+  "$id": "https://localhost/flight_descriptor",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "flight_descriptor",
+  "description": "FlightDescriptor returned by list_flights",
+  "type": "object",
+  "required": [
+    "id",
+    "asset_type",
+    "name",
+    "path"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "object",
+      "required": [
+        "type",
+        "dataset",
+        "dataset_container"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "dataset": {
+          "type": "boolean"
+        },
+        "dataset_container": {
+          "type": "boolean"
+        }
+      }
+    },
+    "name": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "interaction_properties": {
+      "type": "object",
+      "properties": {
+        "schema_name": {
+          "type": "string"
+        },
+        "table_name": {
+          "type": "string"
+        },
+        "stream_name": {
+          "type": "string"
+        }
+      }
+    },
+    "fields":{
+      "type": "array",
+      "items":{
+        "type": "array",
+        "required": ["type"],
+        "properties": {
+          "length": {
+            "type": "number"
+          },
+          "scale": {
+            "type": "number"
+          },
+          "nullable": {
+            "type": "boolean"
+          },
+          "signed":{
+            "type": "boolean"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "if":{
+    "properties":{
+      "asset_type": {
+        "properties":{
+          "dataset": {"const": true}
+        }
+      }
+    }
+  },
+  "then":{
+    "properties":{
+      "required":[
+        "interaction_properties"
+      ]
+    }
+  }
+}

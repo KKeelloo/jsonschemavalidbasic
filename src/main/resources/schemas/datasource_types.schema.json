@@ -47,7 +47,6 @@
                         "if": {
                           "properties": {
                             "name": {
-                              "description": "Names what must be masked = true",
                               "enum": ["api_key", "password", "api-key"]
                             }
                           }
@@ -59,6 +58,7 @@
                           ],
                           "properties": {
                             "group": {
+                              "type": "string",
                               "pattern": "credentials"
                             },
                             "masked": {
@@ -198,7 +198,6 @@
         }
       }
     }
-
   },
   "$defs": {
     "datasource_type": {
