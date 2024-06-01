@@ -1,3 +1,5 @@
+Json schemas placed at **resources/schema**
+
 # Useful resources
 
 To know more about [networknt](https://github.com/networknt/json-schema-validator)

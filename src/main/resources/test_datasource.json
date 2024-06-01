@@ -13,15 +13,14 @@
               "name": "password",
               "type": "string",
               "label": "api_key",
-              "masked": true,
-              "group": ["domain"],
+              "group": "credentials",
               "required": true
             },
             {
               "name": "not_api_key",
               "type": "string",
               "label": "api_key",
-              "group": ["domain"],
+              "group": "domain",
               "required": true
             }
           ]

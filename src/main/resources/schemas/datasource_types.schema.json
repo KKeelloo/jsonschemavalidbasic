@@ -77,13 +77,9 @@
                         },
                         "group": {
                           "type": [
-                            "array",
                             "string",
                             "null"
-                          ],
-                          "items": {
-                            "type": "string"
-                          }
+                          ]
                         },
                         "default_value":{
                           "type": "string"
@@ -105,17 +101,7 @@
                             ],
                             "properties": {
                               "group": {
-                                "if": {
-                                  "type": "array"
-                                },
-                                "then":{
-                                  "contains": {
-                                    "const": "credentials"
-                                  }
-                                },
-                                "else": {
-                                  "const": "credentials"
-                                }
+                                "pattern": "credentials"
                               },
                               "masked": {
                                 "const": true
@@ -165,13 +151,9 @@
                         },
                         "group": {
                           "type": [
-                            "array",
                             "string",
                             "null"
-                          ],
-                          "items": {
-                            "type": "string"
-                          }
+                          ]
                         },
                         "default_value": {
                           "type": "string"
@@ -218,13 +200,9 @@
                         },
                         "group": {
                           "type": [
-                            "array",
                             "string",
                             "null"
-                          ],
-                          "items": {
-                            "type": "string"
-                          }
+                          ]
                         },
                         "default_value": {
                           "type": "string"
@@ -271,13 +249,9 @@
                         },
                         "group": {
                           "type": [
-                            "array",
                             "string",
                             "null"
-                          ],
-                          "items": {
-                            "type": "string"
-                          }
+                          ]
                         },
                         "default_value": {
                           "type": "string"
