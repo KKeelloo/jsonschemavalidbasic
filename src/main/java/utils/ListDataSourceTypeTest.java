@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static utils.OutputUnitUtils.getOutputUnitsByInstanceLocation;
+import static utils.OutputUnitUtils.getOutputUnitsByInstanceLocationPattern;
+
 @Setter
 public class ListDataSourceTypeTest {
 
@@ -25,35 +28,18 @@ public class ListDataSourceTypeTest {
      */
     public void test() {
 
-        getOutputUnitsByInstanceLocation("/datasource_types").forEach(dataSourceTypeSourcePropertyTest::verify);
-        getOutputUnitsByInstanceLocation("/datasource_types/datasource_types").forEach(dataSourceTypesPropertyTest::verify);
+        getOutputUnitsByInstanceLocation(validationResult, "/datasource_types").forEach(dataSourceTypeSourcePropertyTest::verify);
+        getOutputUnitsByInstanceLocation(validationResult, "/datasource_types/datasource_types").forEach(dataSourceTypesPropertyTest::verify);
 
         Pattern dataSourceTypeNamePropertyPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/name");
-        getOutputUnitsByInstanceLocationPattern(dataSourceTypeNamePropertyPattern).forEach(dataSourceTypeNamePropertyTest::verify);
+        getOutputUnitsByInstanceLocationPattern(validationResult, dataSourceTypeNamePropertyPattern).forEach(dataSourceTypeNamePropertyTest::verify);
 
 
         Pattern dataSourceTypeLabelPropertyPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/label");
-        getOutputUnitsByInstanceLocationPattern(dataSourceTypeLabelPropertyPattern).forEach(dataSourceTypeLabelPropertyTest::verify);
+        getOutputUnitsByInstanceLocationPattern(validationResult, dataSourceTypeLabelPropertyPattern).forEach(dataSourceTypeLabelPropertyTest::verify);
 
     }
 
-    private List<OutputUnit> getOutputUnitsByInstanceLocationPattern(Pattern pattern) {
 
-        return validationResult.stream().filter(i -> pattern.matcher(i.getInstanceLocation()).matches()).collect(Collectors.toList());
-
-    }
-
-    private List<OutputUnit> getOutputUnitsByInstanceLocationSubString(String subString) {
-
-        return validationResult.stream().filter(i -> i.getInstanceLocation().contains(subString))
-                .collect(Collectors.toList());
-    }
-
-
-    private List<OutputUnit> getOutputUnitsByInstanceLocation(String string) {
-
-        return validationResult.stream().filter(i -> i.getInstanceLocation().equals(string))
-                .collect(Collectors.toList());
-    }
 
 }
