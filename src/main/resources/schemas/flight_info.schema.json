@@ -1,0 +1,40 @@
+{
+  "$id": "https://localhost/flight_info",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "flight_info",
+  "type": "object",
+  "required": [
+    "id",
+    "asset_type",
+    "name",
+    "path"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "asset_type": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "dataset": {
+          "type": "boolean"
+        },
+        "dataset_container": {
+          "type": "boolean"
+        }
+      }
+    },
+    "name": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    }
+  }
+}

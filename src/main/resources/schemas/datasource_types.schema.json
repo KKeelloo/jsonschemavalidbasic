@@ -1,0 +1,306 @@
+{
+  "$id": "https://localhost/datasource_types",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "datasource_types",
+  "type": "object",
+  "required": ["datasource_types"],
+  "properties": {
+    "datasource_types": {
+      "type": "object",
+      "properties": {
+        "datasource_types": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "label",
+              "allowed_as_source",
+              "allowed_as_target",
+              "status"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Datasource name."
+              },
+              "label": {
+                "type": "string",
+                "description": "Datasource label"
+              },
+              "description": {
+                "description": "Description of datasource.",
+                "type": ["string", "null"]
+              },
+              "allowed_as_source": {
+                "type": "boolean"
+              },
+              "allowed_as_target": {
+                "type": "boolean"
+              },
+              "properties": {
+                "type": ["object", "null"],
+                "properties": {
+                  "connection": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "label",
+                        "type",
+                        "required"
+                      ],
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "Datasource name."
+                        },
+                        "label": {
+                          "type": "string",
+                          "description": "Datasource label"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "description": "Description of connection.",
+                          "type": ["string", "null"]
+                        },
+                        "masked": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "required": {
+                          "type": "boolean",
+                          "description": "Does it have default value?"
+                        },
+                        "group": {
+                          "type": [
+                            "array",
+                            "string",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "default_value":{
+                          "type": "string"
+                        }
+                      },
+                      "allOf": [
+                        {
+                          "if": {
+                            "properties": {
+                              "name": {
+                                "enum": ["api_key", "password"]
+                              }
+                            }
+                          },
+                          "then": {
+                            "required": [
+                              "group",
+                              "masked"
+                            ],
+                            "properties": {
+                              "group": {
+                                "if": {
+                                  "type": "array"
+                                },
+                                "then":{
+                                  "contains": {
+                                    "const": "credentials"
+                                  }
+                                },
+                                "else": {
+                                  "const": "credentials"
+                                }
+                              },
+                              "masked": {
+                                "const": true
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "source": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "label",
+                        "type",
+                        "required"
+                      ],
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "Datasource name."
+                        },
+                        "label": {
+                          "type": "string",
+                          "description": "Datasource label"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "description": "Description of connection.",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "masked": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "required": {
+                          "type": "boolean",
+                          "description": "Does it have default value?"
+                        },
+                        "group": {
+                          "type": [
+                            "array",
+                            "string",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "default_value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "target": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "label",
+                        "type",
+                        "required"
+                      ],
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "Datasource name."
+                        },
+                        "label": {
+                          "type": "string",
+                          "description": "Datasource label"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "description": "Description of connection.",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "masked": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "required": {
+                          "type": "boolean",
+                          "description": "Does it have default value?"
+                        },
+                        "group": {
+                          "type": [
+                            "array",
+                            "string",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "default_value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "filter": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "label",
+                        "type",
+                        "required"
+                      ],
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "Datasource name."
+                        },
+                        "label": {
+                          "type": "string",
+                          "description": "Datasource label"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "description": "Description of connection.",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "masked": {
+                          "type": "boolean",
+                          "default": false
+                        },
+                        "required": {
+                          "type": "boolean",
+                          "description": "Does it have default value?"
+                        },
+                        "group": {
+                          "type": [
+                            "array",
+                            "string",
+                            "null"
+                          ],
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "default_value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "status": {
+                "type": "string"
+              },
+              "tags": {
+                "type": ["array","null"],
+                "items": {
+                  "type": ["string"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

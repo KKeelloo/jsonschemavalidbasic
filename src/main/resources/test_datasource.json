@@ -1,0 +1,33 @@
+{
+  "datasource_types": {
+    "datasource_types": [
+      {
+        "name": "nasa",
+        "label": "nasa datasource",
+        "description": "nasa (SDK)",
+        "allowed_as_source": true,
+        "allowed_as_target": false,
+        "properties": {
+          "connection": [
+            {
+              "name": "password",
+              "type": "string",
+              "label": "api_key",
+              "masked": true,
+              "group": ["domain"],
+              "required": true
+            },
+            {
+              "name": "not_api_key",
+              "type": "string",
+              "label": "api_key",
+              "group": ["domain"],
+              "required": true
+            }
+          ]
+        },
+        "status": "active"
+      }
+    ]
+  }
+}
