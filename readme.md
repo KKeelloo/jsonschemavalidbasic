@@ -12,5 +12,5 @@ To find more about [Json Schema](https://json-schema.org/specification) and its 
 condition when non *required* property is checked and is missing
 
 # Assumptions
-* __"properties"__ ["filter", "target", "source"] have the same fields as __"connection"__
+* *properties* [*filter*, *target*, *source*] have the same fields as *connection*
 
