@@ -42,11 +42,11 @@
       "description": "A name for the asset."
     },
     "description": {
-      "type": "string",
+      "type": ["string", "null"],
       "description": "A description of the asset."
     },
     "tags": {
-      "type": "array",
+      "type": ["array", "null"],
       "description": "Tags associated with the asset.",
       "items": {
         "type": "string"
@@ -57,13 +57,13 @@
       "description": "The path for the object which can be used to discover child assets."
     },
     "has_children": {
-      "type": "boolean",
+      "type": ["boolean", "null"],
       "description": "True if it is known that the asset has children. False if it is known that the asset does not have children. If it is not known, or it is too expensive to determine this, then this property will not be returned."
     },
     "details": {
-      "type": "object",
+      "type": ["object", "null"],
       "additionalProperties": {
-        "type": "object",
+        "type": ["object", "string", "null"],
         "properties": {}
       },
       "description": "Details about a discovered asset."
@@ -71,19 +71,19 @@
     "interaction_properties": {
       "type": "object",
       "additionalProperties": {
-        "type": "object",
+        "type": ["object", "string"],
         "properties": {}
       },
       "description": "The interaction properties needed to find the asset."
     },
     "extended_metadata": {
-      "type": "array",
+      "type": ["array", "null"],
       "description": "Extended metadata properties",
       "items":{
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
+            "type": ["string", "null"],
             "description": "Name of additional metadata"
           },
           "value": {
@@ -97,53 +97,53 @@
     },
     "datasource_type_name": {
       "description": "The unique name of the custom Arrow Flight data source type.",
-      "type": "string"
+      "type": ["string", "null"]
     },
     "connection_properties":{
-      "type": "object",
+      "type": ["object", "null"],
       "additionalProperties": {
-        "type": "object",
+        "type": ["object", "string"],
         "properties": {}
       },
       "description": "Connection properties."
     },
     "batch_size": {
       "description": "The batch size.",
-      "type": "integer"
+      "type": ["integer", "null"]
     },
     "partition_count": {
       "description": "The partition count.",
-      "type": "integer"
+      "type": ["integer", "null"]
     },
     "partition_index": {
       "description": "The partition index.",
-      "type": "integer"
+      "type": ["integer", "null"]
     },
     "fields":{
       "type": "array",
       "description": "Asset fields",
       "items":{
-        "type": "array",
+        "type": "object",
         "required": ["type"],
         "properties": {
           "name": {
-            "type": "string",
+            "type": ["string", "null"],
             "description": "The name of the field."
           },
           "length": {
-            "type": "number",
+            "type": ["number", "null"],
             "description": "The precision (or length) of the field."
           },
           "scale": {
-            "type": "number",
+            "type": ["number","null"],
             "description": "The scale of the field if the type is decimal."
           },
           "nullable": {
-            "type": "boolean",
+            "type": ["boolean", "null"],
             "description": "Whether the field accepts null values."
           },
           "signed":{
-            "type": "boolean",
+            "type": ["boolean", "null"],
             "description": "Whether an integer field holds signed or unsigned values."
           },
           "type": {
@@ -151,7 +151,7 @@
             "description": "The type of the field."
           },
           "description": {
-            "type": "string",
+            "type": ["string", "null"],
             "description": "A description of this field."
           }
         }
