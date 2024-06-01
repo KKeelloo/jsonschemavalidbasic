@@ -12,6 +12,7 @@ To find more about [Json Schema](https://json-schema.org/specification) and its 
 
 * *default* values are ignored during validation, which means that you won't receive warning for *if* 
 condition when non *required* property is checked and is missing
+* change schema *$id* for your own 
 
 # Assumptions
 * *properties* [*filter*, *target*, *source*] have the same fields as *connection*
