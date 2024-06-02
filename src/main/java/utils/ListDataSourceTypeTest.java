@@ -1,8 +1,10 @@
 package utils;
 
+import com.networknt.schema.output.OutputUnit;
 import lombok.Setter;
 import tests.list.datasource.types.*;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Setter
@@ -24,6 +26,11 @@ public class ListDataSourceTypeTest extends TestCaseGroup {
     private final DataSourceTypesPropertiesArraysDefaultValuesTest dataSourceTypesPropertiesArraysDefaultValuesTest = new DataSourceTypesPropertiesArraysDefaultValuesTest();
     private final DataSourceTypesStatusPropertyTest dataSourceTypesStatusPropertyTest = new DataSourceTypesStatusPropertyTest();
     private final DataSourceTypesDescriptionPropertyTest dataSourceTypesDescriptionPropertyTest = new DataSourceTypesDescriptionPropertyTest();
+    private final DataSourceTypesActionsArraysNameTest dataSourceTypesActionsArraysNameTest = new DataSourceTypesActionsArraysNameTest();
+    private final DataSourceTypesActionsArraysDescriptionTest dataSourceTypesActionsArraysDescriptionTest = new DataSourceTypesActionsArraysDescriptionTest();
+    private final DataSourceTypesActionsArraysPropertiesTest dataSourceTypesActionsArraysPropertiesTest = new DataSourceTypesActionsArraysPropertiesTest();
+    private final DataSourceTypesActionsArraysPropertiesInputTest dataSourceTypesActionsArraysPropertiesInputTest = new DataSourceTypesActionsArraysPropertiesInputTest();
+    private final DataSourceTypesActionsArraysPropertiesOutputTest dataSourceTypesActionsArraysPropertiesOutputTest = new DataSourceTypesActionsArraysPropertiesOutputTest();
 
     /**
      * Validate all properties
@@ -89,6 +96,27 @@ public class ListDataSourceTypeTest extends TestCaseGroup {
         getOutputUnitsByInstanceLocationPattern(dataSourceTypesPropertiesArraysDefaultValuesPattern)
                 .forEach(dataSourceTypesPropertiesArraysDefaultValuesTest::verify);
 
-    }
+        // verify properties in /datasource_types/datasource_types/d/actions arrays
 
+        Pattern dataSourceTypesActionsArraysNamePattern = Pattern.compile("/datasource_types/datasource_types/\\d+/actions/\\d+/name");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesActionsArraysNamePattern)
+                .forEach(dataSourceTypesActionsArraysNameTest::verify);
+
+        Pattern dataSourceTypesActionsArraysDescriptionPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/actions/\\d+/description");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesActionsArraysDescriptionPattern)
+                .forEach(dataSourceTypesActionsArraysDescriptionTest::verify);
+
+        Pattern dataSourceTypesActionsArraysPropertiesPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/actions/\\d+/properties");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesActionsArraysPropertiesPattern).
+                forEach(dataSourceTypesActionsArraysPropertiesTest::verify);
+
+        Pattern dataSourceTypesActionsArraysPropertiesInputPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/actions/\\d+/properties/input");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesActionsArraysPropertiesInputPattern).
+                forEach(dataSourceTypesActionsArraysPropertiesInputTest::verify);
+
+        Pattern dataSourceTypesActionsArraysPropertiesOutputPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/actions/\\d+/properties/output");
+        for (OutputUnit outputUnit : getOutputUnitsByInstanceLocationPattern(dataSourceTypesActionsArraysPropertiesOutputPattern)) {
+            dataSourceTypesActionsArraysPropertiesOutputTest.verify(outputUnit);
+        }
+    }
 }
