@@ -1,0 +1,177 @@
+{
+  "$id": "https://localhost/flight_asset_descriptor",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "flight_asset_descriptor",
+  "description": "Flight Asset Descriptor returned by list_flights",
+  "type": "object",
+  "required": [
+    "id",
+    "asset_type",
+    "name",
+    "path"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "An ID for the asset."
+    },
+    "asset_type": {
+      "type": "object",
+      "required": [
+        "type",
+        "dataset",
+        "dataset_container"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The name of the asset type."
+        },
+        "dataset": {
+          "type": "boolean",
+          "description": "Whether the asset can be a source of data or whether it can be written to. To illustrate by example, a database table is a data set, but a schema is not. Likewise, a file is a data set, but a folder/directory is not."
+        },
+        "dataset_container": {
+          "type": "boolean",
+          "description": "Whether an asset can be created in this asset. To illustrate by example, a schema is a data set container, as is a folder/directory."
+        }
+      }
+    },
+    "name": {
+      "type": "string",
+      "description": "A name for the asset."
+    },
+    "description": {
+      "type": ["string", "null"],
+      "description": "A description of the asset."
+    },
+    "tags": {
+      "type": ["array", "null"],
+      "description": "Tags associated with the asset.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "path": {
+      "type": "string",
+      "description": "The path for the object which can be used to discover child assets."
+    },
+    "has_children": {
+      "type": ["boolean", "null"],
+      "description": "True if it is known that the asset has children. False if it is known that the asset does not have children. If it is not known, or it is too expensive to determine this, then this property will not be returned."
+    },
+    "details": {
+      "type": ["object", "null"],
+      "additionalProperties": {
+        "type": ["object", "string", "null"],
+        "properties": {}
+      },
+      "description": "Details about a discovered asset."
+    },
+    "interaction_properties": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["object", "string"],
+        "properties": {}
+      },
+      "description": "The interaction properties needed to find the asset."
+    },
+    "extended_metadata": {
+      "type": ["array", "null"],
+      "description": "Extended metadata properties",
+      "items":{
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": ["string", "null"],
+            "description": "Name of additional metadata"
+          },
+          "value": {
+            "type": "object",
+            "properties": {},
+            "description": "Additional metadata content"
+          }
+        },
+        "description": "Additional metadata found for an asset."
+      }
+    },
+    "datasource_type_name": {
+      "description": "The unique name of the custom Arrow Flight data source type.",
+      "type": ["string", "null"]
+    },
+    "connection_properties":{
+      "type": ["object", "null"],
+      "additionalProperties": {
+        "type": ["object", "string"],
+        "properties": {}
+      },
+      "description": "Connection properties."
+    },
+    "batch_size": {
+      "description": "The batch size.",
+      "type": ["integer", "null"]
+    },
+    "partition_count": {
+      "description": "The partition count.",
+      "type": ["integer", "null"]
+    },
+    "partition_index": {
+      "description": "The partition index.",
+      "type": ["integer", "null"]
+    },
+    "fields":{
+      "type": "array",
+      "description": "Asset fields",
+      "items":{
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "name": {
+            "type": ["string", "null"],
+            "description": "The name of the field."
+          },
+          "length": {
+            "type": ["number", "null"],
+            "description": "The precision (or length) of the field."
+          },
+          "scale": {
+            "type": ["number","null"],
+            "description": "The scale of the field if the type is decimal."
+          },
+          "nullable": {
+            "type": ["boolean", "null"],
+            "description": "Whether the field accepts null values."
+          },
+          "signed":{
+            "type": ["boolean", "null"],
+            "description": "Whether an integer field holds signed or unsigned values."
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the field."
+          },
+          "description": {
+            "type": ["string", "null"],
+            "description": "A description of this field."
+          }
+        }
+      }
+    }
+  },
+  "if":{
+    "properties":{
+      "asset_type": {
+        "properties":{
+          "dataset": {"const": true}
+        }
+      }
+    }
+  },
+  "then":{
+    "properties":{
+      "required":[
+        "interaction_properties"
+      ]
+    }
+  }
+}

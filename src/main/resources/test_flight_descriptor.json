@@ -1,0 +1,10 @@
+{
+  "id": "SCHEMA1",
+  "asset_type": {
+    "type": "schema",
+    "dataset": false,
+    "dataset_container": true
+  },
+  "name": "SCHEMA1",
+  "path": "/SCHEMA1"
+}
