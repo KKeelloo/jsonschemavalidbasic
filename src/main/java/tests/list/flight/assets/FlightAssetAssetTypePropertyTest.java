@@ -21,6 +21,7 @@ public class FlightAssetAssetTypePropertyTest extends SampleTestCase {
             return TestCaseStatus.FAILED;
         }
 
+        log.info(generateValidMessage(outputUnit, getPropertyName()));
         return TestCaseStatus.PASSED;
     }
 }

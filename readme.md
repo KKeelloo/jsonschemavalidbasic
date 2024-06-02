@@ -1,6 +1,11 @@
-Json schemas placed at **resources/schema**
+### Json schemas placed at **resources/schema**
 
-# Useful resources
+## How to run
+Pass 2 arguments: 
+* specify test type : ListFlights or DatasourceTypes
+* path to Json file
+
+## Useful resources
 
 To know more about [networknt](https://github.com/networknt/json-schema-validator)
 
@@ -8,12 +13,11 @@ To find more about [Json Schema](https://json-schema.org/specification) and its 
 * [basic](https://json-schema.org/learn/getting-started-step-by-step)
 * [if-then-else](https://json-schema.org/understanding-json-schema/reference/conditionals#ifthenelse)
 
-# Warnings
+## Warnings
 
-* *default* values are ignored during validation, which means that you won't receive warning for *if* 
-condition when non *required* property is checked and is missing
+*  *default* values are ignored during validation, which means that you won't receive warning for *if* condition when non *required* property is checked and is missing
 * change schema *$id* for your own 
 
-# Assumptions
+## Assumptions
 * *properties* [*filter*, *target*, *source*] have the same fields as *connection*
 

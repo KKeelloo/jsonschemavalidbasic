@@ -20,6 +20,7 @@ public class FlightAssetPathPropertyTest extends SampleTestCase {
             return TestCaseStatus.FAILED;
         }
 
+        log.info(generateValidMessage(outputUnit, getPropertyName()));
         return TestCaseStatus.PASSED;
     }
 }

@@ -11,7 +11,7 @@ public abstract class SampleTestCase{
     }
 
     public String description() {
-        return String.format("Verify %s of list_datasource_types", getPropertyName());
+        return String.format("Verify %s", getPropertyName());
     }
 
     protected String generateErrorMessage(OutputUnit outputUnit, String propertyName) {
