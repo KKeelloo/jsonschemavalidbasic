@@ -19,6 +19,7 @@ public class DataSourceTypesRootPropertyTest extends SampleTestCase {
             return TestCaseStatus.FAILED;
         }
 
+        log.info(generateValidMessage(outputUnit, propertyName));
         return TestCaseStatus.PASSED;
     }
 }

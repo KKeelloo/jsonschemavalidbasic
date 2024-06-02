@@ -4,33 +4,33 @@
       {
         "name": null,
         "label": null,
-        "description": "nasa (SDK)",
-        "allowed_as_source": true,
-        "allowed_as_target": false,
+        "description": true,
+        "allowed_as_source": 1,
+        "allowed_as_target": 2,
         "discovery": null,
         "properties": {
           "connection": [
             {
-              "name": "api_key",
-              "type": "string",
-              "label": "api_key",
-              "description": "API access key used to retrieve data from the NASA APOD API.",
+              "name": null,
+              "type": null,
+              "label": null,
+              "description": 2,
               "placeholder": null,
-              "required": true,
+              "required": null,
               "masked": null,
               "multiline": null,
               "default_value": null,
               "values": null,
-              "group": null
+              "group": true
             },
             {
-              "name": "concept_tags",
+              "name": "api_key",
               "type": "boolean",
               "label": "concept_tags",
               "description": "Indicates whether concept tags should be returned with the rest of the response.  The concept tags are not necessarily included in the explanation, but rather derived from common search tags that are associated with the description text. (Better than just pure text search.) Defaults to False.",
               "placeholder": null,
               "required": false,
-              "masked": null,
+              "masked": false,
               "multiline": null,
               "default_value": null,
               "values": null,
@@ -120,7 +120,7 @@
           "target": null,
           "filter": null
         },
-        "status": "pending",
+        "status": "test",
         "tags": [],
         "actions": [
           {

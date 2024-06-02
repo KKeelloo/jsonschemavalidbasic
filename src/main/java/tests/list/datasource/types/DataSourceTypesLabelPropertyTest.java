@@ -6,9 +6,9 @@ import utils.SampleTestCase;
 import utils.TestCaseStatus;
 
 @Slf4j
-public class DataSourceTypesPropertyTest extends SampleTestCase {
+public class DataSourceTypesLabelPropertyTest extends SampleTestCase {
 
-    private static final String propertyName = "datasource_types/datasource_types";
+    private static final String propertyName = "datasource_types/datasource_types/label";
 
     @Override
     public TestCaseStatus verify(OutputUnit outputUnit) {
@@ -22,4 +22,5 @@ public class DataSourceTypesPropertyTest extends SampleTestCase {
         log.info(generateValidMessage(outputUnit, propertyName));
         return TestCaseStatus.PASSED;
     }
+
 }

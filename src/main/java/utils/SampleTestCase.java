@@ -22,4 +22,9 @@ public abstract class SampleTestCase {
         }
     }
 
+    protected String generateValidMessage(OutputUnit outputUnit, String propertyName){
+
+        return String.format("Verification passed for property \"%s\" in location %s", propertyName, outputUnit.getInstanceLocation());
+    }
+
 }

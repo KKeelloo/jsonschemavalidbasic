@@ -6,9 +6,9 @@ import utils.SampleTestCase;
 import utils.TestCaseStatus;
 
 @Slf4j
-public class DataSourceTypesPropertyTest extends SampleTestCase {
+public class AllowedAsSourcePropertyTest extends SampleTestCase {
 
-    private static final String propertyName = "datasource_types/datasource_types";
+    private static final String propertyName = "datasource_types/datasource_types/allowed_as_source";
 
     @Override
     public TestCaseStatus verify(OutputUnit outputUnit) {

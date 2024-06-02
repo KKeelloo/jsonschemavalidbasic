@@ -21,11 +21,13 @@ public class JsonVerifyCheck {
         URL datasourceTypesURL = Resources.getResource("schemas/datasource_types.schema.json");
         String dataSourceTypesString = Resources.toString(datasourceTypesURL, StandardCharsets.UTF_8);
 
-        URL testdatasourceTypesURL = Resources.getResource("test_datasource.json");
+        URL testdatasourceTypesURL = Resources.getResource("test_datasource_2.json");
         String testdataSourceTypesString = Resources.toString(testdatasourceTypesURL, StandardCharsets.UTF_8);
 
         List<OutputUnit> validationResult = networkntCheckAndReturnDetails(dataSourceTypesString, testdataSourceTypesString);
 
+
+        System.out.println(validationResult);
 
         ListDataSourceTypeTest dataSourceTypeTest = new ListDataSourceTypeTest();
         dataSourceTypeTest.setValidationResult(validationResult);
