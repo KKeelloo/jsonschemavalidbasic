@@ -1,15 +1,12 @@
 package utils;
 
-import com.networknt.schema.output.OutputUnit;
 import lombok.Setter;
 import tests.list.datasource.types.*;
 
-import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Setter
-public class ListDataSourceTypeTest {
+public class ListDataSourceTypeTest extends TestCaseGroup {
 
     private final DataSourceTypesRootPropertyTest dataSourceTypeSourcePropertyTest = new DataSourceTypesRootPropertyTest();
     private final DataSourceTypesPropertyTest dataSourceTypesPropertyTest = new DataSourceTypesPropertyTest();
@@ -27,11 +24,11 @@ public class ListDataSourceTypeTest {
     private final DataSourceTypesPropertiesArraysDefaultValuesTest dataSourceTypesPropertiesArraysDefaultValuesTest = new DataSourceTypesPropertiesArraysDefaultValuesTest();
     private final DataSourceTypesStatusPropertyTest dataSourceTypesStatusPropertyTest = new DataSourceTypesStatusPropertyTest();
     private final DataSourceTypesDescriptionPropertyTest dataSourceTypesDescriptionPropertyTest = new DataSourceTypesDescriptionPropertyTest();
-    private List<OutputUnit> validationResult;
 
     /**
      * Validate all properties
      */
+    @Override
     public void test() {
 
         // verify root objects
@@ -92,25 +89,6 @@ public class ListDataSourceTypeTest {
         getOutputUnitsByInstanceLocationPattern(dataSourceTypesPropertiesArraysDefaultValuesPattern)
                 .forEach(dataSourceTypesPropertiesArraysDefaultValuesTest::verify);
 
-    }
-
-    private List<OutputUnit> getOutputUnitsByInstanceLocationPattern(Pattern pattern) {
-
-        return validationResult.stream().filter(i -> pattern.matcher(i.getInstanceLocation()).matches()).collect(Collectors.toList());
-
-    }
-
-    private List<OutputUnit> getOutputUnitsByInstanceLocationSubString(String subString) {
-
-        return validationResult.stream().filter(i -> i.getInstanceLocation().contains(subString))
-                .collect(Collectors.toList());
-    }
-
-
-    private List<OutputUnit> getOutputUnitsByInstanceLocation(String string) {
-
-        return validationResult.stream().filter(i -> i.getInstanceLocation().equals(string))
-                .collect(Collectors.toList());
     }
 
 }

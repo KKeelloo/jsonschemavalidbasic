@@ -7,19 +7,22 @@ import utils.TestCaseStatus;
 
 @Slf4j
 public class DataSourceTypesPropertiesArraysTypeTest extends SampleTestCase {
+    @Override
+    public String getPropertyName() {
 
-    private static final String propertyName = "datasource_types/datasource_types/properties/[connection|source|filter|target]/type";
+        return "datasource_types/datasource_types/properties/[connection|source|filter|target]/type";
+    }
 
     @Override
     public TestCaseStatus verify(OutputUnit outputUnit) {
 
         if (!outputUnit.isValid()) {
 
-            log.error(generateErrorMessage(outputUnit, propertyName));
+            log.error(generateErrorMessage(outputUnit, getPropertyName()));
             return TestCaseStatus.FAILED;
         }
 
-        log.info(generateValidMessage(outputUnit, propertyName));
+        log.info(generateValidMessage(outputUnit, getPropertyName()));
         return TestCaseStatus.PASSED;
     }
 }

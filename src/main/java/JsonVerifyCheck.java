@@ -3,10 +3,13 @@ import com.google.common.io.Resources;
 import com.networknt.schema.*;
 import com.networknt.schema.output.OutputUnit;
 import utils.ListDataSourceTypeTest;
+import utils.TestCaseGroup;
 
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,7 +24,7 @@ public class JsonVerifyCheck {
         URL datasourceTypesURL = Resources.getResource("schemas/datasource_types.schema.json");
         String dataSourceTypesString = Resources.toString(datasourceTypesURL, StandardCharsets.UTF_8);
 
-        URL testdatasourceTypesURL = Resources.getResource("test_datasource_2.json");
+        URL testdatasourceTypesURL = Resources.getResource("test_datasource_invalid.json");
         String testdataSourceTypesString = Resources.toString(testdatasourceTypesURL, StandardCharsets.UTF_8);
 
         List<OutputUnit> validationResult = networkntCheckAndReturnDetails(dataSourceTypesString, testdataSourceTypesString);

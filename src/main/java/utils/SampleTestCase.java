@@ -8,6 +8,10 @@ public abstract class SampleTestCase {
 
     public abstract TestCaseStatus verify(OutputUnit outputUnit);
 
+    public String getPropertyName() {
+        return propertyName;
+    }
+
     public String description() {
         return String.format("Verify %s of list_datasource_types", propertyName);
     }

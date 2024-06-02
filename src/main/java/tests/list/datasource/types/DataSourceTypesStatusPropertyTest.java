@@ -8,18 +8,22 @@ import utils.TestCaseStatus;
 @Slf4j
 public class DataSourceTypesStatusPropertyTest extends SampleTestCase {
 
-    private static final String propertyName = "datasource_types/datasource_types/status";
+    @Override
+    public String getPropertyName() {
+
+        return "datasource_types/datasource_types/status";
+    }
 
     @Override
     public TestCaseStatus verify(OutputUnit outputUnit) {
 
         if (!outputUnit.isValid()) {
 
-            log.error(generateErrorMessage(outputUnit, propertyName));
+            log.error(generateErrorMessage(outputUnit, getPropertyName()));
             return TestCaseStatus.FAILED;
         }
 
-        log.info(generateValidMessage(outputUnit, propertyName));
+        log.info(generateValidMessage(outputUnit, getPropertyName()));
         return TestCaseStatus.PASSED;
     }
 
