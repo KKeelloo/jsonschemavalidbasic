@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="JsonVerifyCheck" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="JsonVerifyCheck" />
+    <module name="JsonVerifyCheck" />
+    <option name="PROGRAM_PARAMETERS" value="ListFlights schemas/flight_asset_descriptor.schema.json test_list_flights_invalid.json" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

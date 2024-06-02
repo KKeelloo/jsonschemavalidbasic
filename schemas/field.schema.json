@@ -1,0 +1,24 @@
+{
+  "$id": "https://localhost/field",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "field",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "length": {
+      "type": "number"
+    },
+    "scale": {
+      "type": "number"
+    },
+    "nullable": {
+      "type": "boolean"
+    },
+    "signed":{
+      "type": "boolean"
+    },
+    "type": {
+      "type": "string"
+    }
+  }
+}

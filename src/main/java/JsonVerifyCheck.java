@@ -3,6 +3,7 @@ import com.google.common.io.Resources;
 import com.networknt.schema.*;
 import com.networknt.schema.output.OutputUnit;
 import utils.ListDataSourceTypeTest;
+import utils.ListFlightsTest;
 import utils.TestCaseGroup;
 
 import java.io.IOException;
@@ -15,26 +16,62 @@ import java.util.Locale;
 
 
 public class JsonVerifyCheck {
-
     public static void main(String[] args) throws IOException {
 
         // to print errors in english
         Locale.setDefault(Locale.ENGLISH);
 
-        URL datasourceTypesURL = Resources.getResource("schemas/datasource_types.schema.json");
-        String dataSourceTypesString = Resources.toString(datasourceTypesURL, StandardCharsets.UTF_8);
+        if (args.length >= 3) {
+            Path schemaPath = Path.of(args[1]);
+            System.out.println(schemaPath.toAbsolutePath());
+            String schemaString = Files.readString(schemaPath);
 
-        URL testdatasourceTypesURL = Resources.getResource("test_datasource_invalid.json");
-        String testdataSourceTypesString = Resources.toString(testdatasourceTypesURL, StandardCharsets.UTF_8);
+            Path jsonPath = Path.of(args[2]);
+            String jsonString = Files.readString(jsonPath);
 
-        List<OutputUnit> validationResult = networkntCheckAndReturnDetails(dataSourceTypesString, testdataSourceTypesString);
+            List<OutputUnit> validationResult = networkntCheckAndReturnDetails(schemaString, jsonString);
 
+            TestCaseGroup listFlightsTest = getTestCaseGroup(args[0]);
+            if (listFlightsTest == null) {
+                System.out.println("Incorrect test case group name");
+                return;
+            }
+            listFlightsTest.setValidationResult(validationResult);
+            listFlightsTest.test();
+            return;
+        }
 
-        System.out.println(validationResult);
+        //If no arguments passed get files from resources
+        URL datasourceTypesSchemaURL = Resources.getResource("schemas/datasource_types.schema.json");
+        String datasourceTypesSchemaString = Resources.toString(datasourceTypesSchemaURL, StandardCharsets.UTF_8);
+
+        URL testDatasourceTypesJsonURL = Resources.getResource("test_datasource_invalid.json");
+        String testDatasourceTypesJsonString = Resources.toString(testDatasourceTypesJsonURL, StandardCharsets.UTF_8);
+
+        URL listFlightsSchemaURL = Resources.getResource("schemas/flight_asset_descriptor.schema.json");
+        String listFlightsSchemaString = Resources.toString(listFlightsSchemaURL, StandardCharsets.UTF_8);
+
+        URL listFlightsTestURL = Resources.getResource("test_list_flights_invalid.json");
+        String listFlightsTestString = Resources.toString(listFlightsTestURL, StandardCharsets.UTF_8);
 
         ListDataSourceTypeTest dataSourceTypeTest = new ListDataSourceTypeTest();
         dataSourceTypeTest.setValidationResult(validationResult);
         dataSourceTypeTest.test();
+
+        ListFlightsTest listFlightsTest = new ListFlightsTest();
+        listFlightsTest.setValidationResult(listFlightsValidationResult);
+        listFlightsTest.test();
+    }
+
+    private static TestCaseGroup getTestCaseGroup(String name) {
+        switch (name) {
+            case "ListFlights":
+                return new ListFlightsTest();
+            case "DatasourceTypes":
+                return new ListDataSourceTypeTest();
+            default:
+                return null;
+        }
     }
 
     private static List<OutputUnit> networkntCheckAndReturnDetails(String dataSourceTypesString, String testdataSourceTypesString) throws JsonProcessingException {
