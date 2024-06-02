@@ -1,0 +1,268 @@
+{
+  "$id": "https://localhost/datasource_types",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "list_datasource_types",
+  "description": "Data Source returned by list_datasource_types",
+  "type": "object",
+  "required": ["datasource_types"],
+  "properties": {
+    "datasource_types": {
+      "type": "object",
+      "properties": {
+        "datasource_types": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "label",
+              "allowed_as_source",
+              "allowed_as_target",
+              "status"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "description": {
+                "type": ["string", "null"]
+              },
+              "allowed_as_source": {
+                "type": "boolean"
+              },
+              "allowed_as_target": {
+                "type": "boolean"
+              },
+              "properties": {
+                "type": "object",
+                "properties": {
+                  "connection": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "$ref": "#/$defs/datasource_type",
+                      "allOf": [{
+                        "if": {
+                          "properties": {
+                            "name": {
+                              "enum": ["api_key", "password", "api-key"]
+                            }
+                          }
+                        },
+                        "then": {
+                          "required": [
+                            "group",
+                            "masked"
+                          ],
+                          "properties": {
+                            "group": {
+                              "type": "string",
+                              "pattern": "credentials"
+                            },
+                            "masked": {
+                              "const": true
+                            }
+                          }
+                        }
+                      }
+                      ]
+                    }
+                  },
+                  "source": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "$ref": "#/$defs/datasource_type"
+                    }
+                  },
+                  "target": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "$ref": "#/$defs/datasource_type"
+                    }
+                  },
+                  "filter": {
+                    "type": ["array", "null"],
+                    "items": {
+                      "$ref": "#/$defs/datasource_type"
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "status": {
+                "type": "string",
+                "description": "Values from StatusEnum- class com.ibm.wdp.connect.common.sdk.api.models.CustomFlightDataSourceType",
+                "enum": ["active", "deprecated", "inactive", "pending"]
+              },
+              "tags": {
+                "type": ["array", "null"],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "actions": {
+                "type": ["array", "null"],
+                "description": "This array is being returned by one of the connectors, but it’s not present in the documentation",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "description": {
+                      "type": ["string", "null"]
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "properties": {
+                      "type": "object",
+                      "properties": {
+                        "input": {
+                          "type": ["array", "null"],
+                          "items": {
+                            "$ref": "#/$defs/datasource_type"
+                          }
+                        },
+                        "output": {
+                          "type": ["array", "null"],
+                          "items": {
+                            "$ref": "#/$defs/datasource_type"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+
+              "discovery": {
+                "type": ["object", "null"],
+                "description": "This array is being returned by one of the connectors, but it’s not present in the documentation",
+                "properties": {
+                  "assetTypes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "nextLevelFilters": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "pathProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "propertyName": {
+                          "type": "string"
+                        },
+                        "segments": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "assetTypes": {
+                                "type": "string"
+                              },
+                              "repeatable": {
+                                "type": "boolean"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "topLevelFilters": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+
+            }
+          }
+        }
+      }
+    }
+
+  },
+  "$defs": {
+    "datasource_type": {
+      "type": "object",
+      "required": [
+        "name",
+        "label",
+        "type",
+        "required"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "Values from TypeEnum - class com.ibm.wdp.connect.common.sdk.api.models.CustomDatasourceTypeProperty",
+          "enum": ["boolean", "enum", "integer", "string"]
+        },
+        "description": {
+          "description": "Description of connection",
+          "type": ["string", "null"]
+        },
+        "masked": {
+          "type": "boolean",
+          "default": false
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "group": {
+          "type": ["string", "null"],
+          "description": "Can be list of values comma separated e.g. domain, credentials, ssl, other"
+        },
+        "default_value": {
+          "type": ["string", "null"]
+        },
+        "multiline": {
+          "type": ["boolean", "null"],
+          "description": "This field is being returned by one of the connectors, but it’s not present in the documentation"
+        },
+        "placeholder": {
+          "type": ["string", "null"],
+          "description": "This field is being returned by one of the connectors, but it’s not present in the documentation"
+        },
+        "values": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": ["string", "null"]
+              },
+              "value": {
+                "type": ["string", "null"]
+              }
+            }
+          },
+          "description": "This field is being returned by one of the connectors, but it’s not present in the documentation"
+        }
+      }
+    }
+  }
+}

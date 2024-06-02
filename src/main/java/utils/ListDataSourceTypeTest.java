@@ -15,17 +15,17 @@ import static utils.OutputUnitUtils.getOutputUnitsByInstanceLocation;
 import static utils.OutputUnitUtils.getOutputUnitsByInstanceLocationPattern;
 
 @Setter
-public class ListDataSourceTypeTest {
+public class ListDataSourceTypeTest extends TestCaseGroup {
 
     private final DataSourceTypesRootPropertyTest dataSourceTypeSourcePropertyTest = new DataSourceTypesRootPropertyTest();
     private final DataSourceTypesPropertyTest dataSourceTypesPropertyTest = new DataSourceTypesPropertyTest();
     private final DataSourceTypeNamePropertyTest dataSourceTypeNamePropertyTest = new DataSourceTypeNamePropertyTest();
     private final DataSourceTypeLabelPropertyTest dataSourceTypeLabelPropertyTest = new DataSourceTypeLabelPropertyTest();
-    private List<OutputUnit> validationResult;
 
     /**
      * Validate all properties
      */
+    @Override
     public void test() {
 
         getOutputUnitsByInstanceLocation(validationResult, "/datasource_types").forEach(dataSourceTypeSourcePropertyTest::verify);

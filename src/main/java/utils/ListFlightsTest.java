@@ -17,7 +17,7 @@ import java.util.List;
 import static utils.OutputUnitUtils.getOutputUnitsByInstanceLocation;
 
 @Setter
-public class ListFlightsTest {
+public class ListFlightsTest extends TestCaseGroup {
     private final List<SampleTestCase> testCases = List.of(
             new FlightAssetIdPropertyTest(),
             new FlightAssetAssetTypePropertyTest(),
@@ -28,8 +28,8 @@ public class ListFlightsTest {
             new FlightAssetDatasetPropertyTest(),
             new FlightAssetFieldsTypePropertyTest()
     );
-    private List<OutputUnit> validationResult;
 
+    @Override
     public void test() {
         for (SampleTestCase testCase : testCases) {
             getOutputUnitsByInstanceLocation(validationResult, testCase.getPropertyName()).forEach(testCase::verify);
