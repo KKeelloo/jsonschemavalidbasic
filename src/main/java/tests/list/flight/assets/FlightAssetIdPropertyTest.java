@@ -8,13 +8,16 @@ import utils.TestCaseStatus;
 @Slf4j
 public class FlightAssetIdPropertyTest extends SampleTestCase {
 
-    private static final String propertyName = "id";
+    @Override
+    public String getPropertyName() {
+        return "/id";
+    }
 
     @Override
     public TestCaseStatus verify(OutputUnit outputUnit) {
         if (!outputUnit.isValid()) {
 
-            log.error(generateErrorMessage(outputUnit, propertyName));
+            log.error(generateErrorMessage(outputUnit, getPropertyName()));
             return TestCaseStatus.FAILED;
         }
 

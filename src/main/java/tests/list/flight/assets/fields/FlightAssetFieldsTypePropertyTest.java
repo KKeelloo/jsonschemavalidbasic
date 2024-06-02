@@ -8,14 +8,16 @@ import utils.TestCaseStatus;
 @Slf4j
 
 public class FlightAssetFieldsTypePropertyTest extends SampleTestCase {
-
-    private static final String propertyName = "fields/items/type";
+    @Override
+    public String getPropertyName() {
+        return "/fields/items/type";
+    }
 
     @Override
     public TestCaseStatus verify(OutputUnit outputUnit) {
         if (!outputUnit.isValid()) {
 
-            log.error(generateErrorMessage(outputUnit, propertyName));
+            log.error(generateErrorMessage(outputUnit, getPropertyName()));
             return TestCaseStatus.FAILED;
         }
 

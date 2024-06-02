@@ -8,13 +8,16 @@ import utils.TestCaseStatus;
 @Slf4j
 
 public class FlightAssetDatasetContainerPropertyTest extends SampleTestCase {
-    private static final String propertyName = "asset_type/dataset_container";
+    @Override
+    public String getPropertyName() {
+        return "/asset_type/dataset_container";
+    }
 
     @Override
     public TestCaseStatus verify(OutputUnit outputUnit) {
         if (!outputUnit.isValid()) {
 
-            log.error(generateErrorMessage(outputUnit, propertyName));
+            log.error(generateErrorMessage(outputUnit, getPropertyName()));
             return TestCaseStatus.FAILED;
         }
 

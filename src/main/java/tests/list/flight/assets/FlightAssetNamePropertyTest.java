@@ -7,13 +7,16 @@ import utils.TestCaseStatus;
 
 @Slf4j
 public class FlightAssetNamePropertyTest extends SampleTestCase {
-    private static final String propertyName = "name";
+    @Override
+    public String getPropertyName() {
+        return "/name";
+    }
 
     @Override
     public TestCaseStatus verify(OutputUnit outputUnit) {
         if (!outputUnit.isValid()) {
 
-            log.error(generateErrorMessage(outputUnit, propertyName));
+            log.error(generateErrorMessage(outputUnit, getPropertyName()));
             return TestCaseStatus.FAILED;
         }
 
