@@ -31,6 +31,17 @@ public class ListDataSourceTypeTest extends TestCaseGroup {
     private final DataSourceTypesActionsArraysPropertiesTest dataSourceTypesActionsArraysPropertiesTest = new DataSourceTypesActionsArraysPropertiesTest();
     private final DataSourceTypesActionsArraysPropertiesInputTest dataSourceTypesActionsArraysPropertiesInputTest = new DataSourceTypesActionsArraysPropertiesInputTest();
     private final DataSourceTypesActionsArraysPropertiesOutputTest dataSourceTypesActionsArraysPropertiesOutputTest = new DataSourceTypesActionsArraysPropertiesOutputTest();
+    private final DataSourceTypesDiscoveryPropertyTest dataSourceTypesDiscoveryPropertyTest = new DataSourceTypesDiscoveryPropertyTest();
+    private final DataSourceTypesDiscoveryAssetTypesTest dataSourceTypesDiscoveryAssetTypesTest = new DataSourceTypesDiscoveryAssetTypesTest();
+    private final DataSourceTypesDiscoveryAssetTypesArraysLabelTest dataSourceTypesDiscoveryAssetTypesArraysLabelTest = new DataSourceTypesDiscoveryAssetTypesArraysLabelTest();
+    private final DataSourceTypesDiscoveryAssetTypesArraysNameTest dataSourceTypesDiscoveryAssetTypesArraysNameTest = new DataSourceTypesDiscoveryAssetTypesArraysNameTest();
+    private final DataSourceTypesDiscoveryAssetTypesArraysNextLevelFiltersTest dataSourceTypesDiscoveryAssetTypesArraysNextLevelFiltersTest = new DataSourceTypesDiscoveryAssetTypesArraysNextLevelFiltersTest();
+    private final DataSourceTypesDiscoveryPathPropertiesTest dataSourceTypesDiscoveryPathPropertiesTest = new DataSourceTypesDiscoveryPathPropertiesTest();
+    private final DataSourceTypesDiscoveryPathPropertiesArraysPropertyNameTest dataSourceTypesDiscoveryPathPropertiesArraysPropertyNameTest = new DataSourceTypesDiscoveryPathPropertiesArraysPropertyNameTest();
+    private final DataSourceTypesDiscoveryPathPropertiesArraysSegmentsTest dataSourceTypesDiscoveryPathPropertiesArraysSegmentsTest = new DataSourceTypesDiscoveryPathPropertiesArraysSegmentsTest();
+    private final DataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysAssetTypesTest dataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysAssetTypesTest = new DataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysAssetTypesTest();
+    private final DataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysRepeatableTest dataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysRepeatableTest = new DataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysRepeatableTest();
+    private final DataSourceTypesDiscoveryTopLevelFiltersTest dataSourceTypesDiscoveryTopLevelFiltersTest = new DataSourceTypesDiscoveryTopLevelFiltersTest();
 
     /**
      * Validate all properties
@@ -118,5 +129,51 @@ public class ListDataSourceTypeTest extends TestCaseGroup {
         for (OutputUnit outputUnit : getOutputUnitsByInstanceLocationPattern(dataSourceTypesActionsArraysPropertiesOutputPattern)) {
             dataSourceTypesActionsArraysPropertiesOutputTest.verify(outputUnit);
         }
+
+        // verify properties in /datasource_types/datasource_types/d/discovery
+
+        Pattern dataSourceTypesDiscoveryPropertyPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryPropertyPattern)
+                .forEach(dataSourceTypesDiscoveryPropertyTest::verify);
+
+        Pattern dataSourceTypesDiscoveryAssetTypesPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery/assetTypes");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryAssetTypesPattern)
+                .forEach(dataSourceTypesDiscoveryAssetTypesTest::verify);
+
+        Pattern dataSourceTypesDiscoveryAssetTypesArraysLabelPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery/assetTypes/\\d+/label");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryAssetTypesArraysLabelPattern)
+                .forEach(dataSourceTypesDiscoveryAssetTypesArraysLabelTest::verify);
+
+        Pattern dataSourceTypesDiscoveryAssetTypesArraysNamePattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery/assetTypes/\\d+/name");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryAssetTypesArraysNamePattern)
+                .forEach(dataSourceTypesDiscoveryAssetTypesArraysNameTest::verify);
+
+        Pattern dataSourceTypesDiscoveryAssetTypesArraysNextLevelFiltersPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery/assetTypes/\\d+/nextLevelFilters");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryAssetTypesArraysNextLevelFiltersPattern)
+                .forEach(dataSourceTypesDiscoveryAssetTypesArraysNextLevelFiltersTest::verify);
+
+        Pattern dataSourceTypesDiscoveryPathPropertiesPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery/pathProperties");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryPathPropertiesPattern)
+                .forEach(dataSourceTypesDiscoveryPathPropertiesTest::verify);
+
+        Pattern dataSourceTypesDiscoveryPathPropertiesArraysPropertyNamePattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery/pathProperties/\\d+/propertyName");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryPathPropertiesArraysPropertyNamePattern)
+                .forEach(dataSourceTypesDiscoveryPathPropertiesArraysPropertyNameTest::verify);
+
+        Pattern dataSourceTypesDiscoveryPathPropertiesArraysSegmentsPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery/pathProperties/\\d+/segments");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryPathPropertiesArraysSegmentsPattern)
+                .forEach(dataSourceTypesDiscoveryPathPropertiesArraysSegmentsTest::verify);
+
+        Pattern dataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysAssetTypesPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery/pathProperties/\\d+/segments/\\d+/assetTypes");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysAssetTypesPattern)
+                .forEach(dataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysAssetTypesTest::verify);
+
+        Pattern dataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysRepeatablePattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery/pathProperties/\\d+/segments/\\d+/repeatable");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysRepeatablePattern)
+                .forEach(dataSourceTypesDiscoveryPathPropertiesArraysSegmentsArraysRepeatableTest::verify);
+
+        Pattern dataSourceTypesDiscoveryTopLevelFiltersPattern = Pattern.compile("/datasource_types/datasource_types/\\d+/discovery/topLevelFilters");
+        getOutputUnitsByInstanceLocationPattern(dataSourceTypesDiscoveryTopLevelFiltersPattern)
+                .forEach(dataSourceTypesDiscoveryTopLevelFiltersTest::verify);
     }
 }
