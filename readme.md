@@ -22,7 +22,8 @@ Examples:
 - `default` values are ignored during validation, which means that you won't receive warning for an `if` condition when a non `required` property is checked and is missing
 
 ## Assumptions
-- properties `filter`, `target` and `source` have the same fields as `connection`
+- properties `filter`, `target` and `source` are assumed to have the same fields as `connection`
+- all additional assumptions about the structure of responses are defined in the schema files
 
 ## Additional info
 - when adding more schemas to validate make their `$id`s unique
