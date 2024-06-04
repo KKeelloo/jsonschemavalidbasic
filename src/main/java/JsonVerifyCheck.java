@@ -25,20 +25,20 @@ public class JsonVerifyCheck {
 
         if (args.length >= 2) {
 
-            Path jsonPath = Path.of(args[2]);
+            Path jsonPath = Path.of(args[1]);
             String jsonString = Files.readString(jsonPath);
 
-            TestCaseGroup listFlightsTest = getTestCaseGroup(args[1]);
-            if (listFlightsTest == null) {
+            TestCaseGroup testCaseGroup = getTestCaseGroup(args[0]);
+            if (testCaseGroup == null) {
                 System.out.println("Incorrect test case group name");
                 return;
             }
 
-            String schemaString = getSchemaString(args[1]);
+            String schemaString = getSchemaString(args[0]);
             List<OutputUnit> validationResult = networkntCheckAndReturnDetails(schemaString, jsonString);
             log.info(args[1] + " validation");
-            listFlightsTest.setValidationResult(validationResult);
-            listFlightsTest.test();
+            testCaseGroup.setValidationResult(validationResult);
+            testCaseGroup.test();
             log.debug(args[1] + validationResult);
             return;
         }
