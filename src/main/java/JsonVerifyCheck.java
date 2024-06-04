@@ -1,61 +1,108 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.io.Resources;
 import com.networknt.schema.*;
 import com.networknt.schema.output.OutputUnit;
-//import io.vertx.core.json.JsonObject;
-//import io.vertx.json.schema.*;
-import com.google.common.io.Resources;
-//import io.vertx.json.schema.JsonSchema;
-//import io.vertx.json.schema.OutputFormat;
+import lombok.extern.slf4j.Slf4j;
+import utils.ListDataSourceTypeTest;
+import utils.ListFlightsTest;
+import utils.TestCaseGroup;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Locale;
 
-//import static io.vertx.json.schema.OutputFormat.Basic;
 
+@Slf4j
 public class JsonVerifyCheck {
-    private static final String id = "https://localhost/";
-    public static void main(String[] args) throws URISyntaxException, IOException {
+    public static void main(String[] args) throws IOException {
 
-        URL datasourceTypesURL = Resources.getResource("schemas/flight_asset_descriptor.schema.json");
-        String dataSourceTypesString = Resources.toString(datasourceTypesURL, StandardCharsets.UTF_8);
+        // to print errors in english
+        Locale.setDefault(Locale.ENGLISH);
 
-        URL testdatasourceTypesURL = Resources.getResource("test_flight_descriptor.json");
-        String testdataSourceTypesString = Resources.toString(testdatasourceTypesURL, StandardCharsets.UTF_8);
+        if (args.length >= 2) {
 
-//        URL datasourceTypesURL = Resources.getResource("schemas/datasource_types.schema.json");
-//        String dataSourceTypesString = Resources.toString(datasourceTypesURL, StandardCharsets.UTF_8);
-//
-//        URL testdatasourceTypesURL = Resources.getResource("test_datasource.json");
-//        String testdataSourceTypesString = Resources.toString(testdatasourceTypesURL, StandardCharsets.UTF_8);
+            Path jsonPath = Path.of(args[2]);
+            String jsonString = Files.readString(jsonPath);
 
-        networkntCheck(dataSourceTypesString, testdataSourceTypesString);
+            TestCaseGroup listFlightsTest = getTestCaseGroup(args[1]);
+            if (listFlightsTest == null) {
+                System.out.println("Incorrect test case group name");
+                return;
+            }
 
+            String schemaString = getSchemaString(args[1]);
+            List<OutputUnit> validationResult = networkntCheckAndReturnDetails(schemaString, jsonString);
+            log.info(args[1] + " validation");
+            listFlightsTest.setValidationResult(validationResult);
+            listFlightsTest.test();
+            log.debug(args[1] + validationResult);
+            return;
+        }
+
+        //If no arguments passed get files from resources
+        String datasourceTypesSchemaString = getSchemaString("DatasourceTypes");
+        URL testDatasourceTypesJsonURL = Resources.getResource("test_datasource.json");
+        String testDatasourceTypesJsonString = Resources.toString(testDatasourceTypesJsonURL, StandardCharsets.UTF_8);
+
+        String listFlightsSchemaString = getSchemaString("ListFlights");
+        URL listFlightsTestURL = Resources.getResource("test_list_flights.json");
+        String listFlightsTestString = Resources.toString(listFlightsTestURL, StandardCharsets.UTF_8);
+
+        log.info("DatasourceTypes validation");
+        List<OutputUnit> dataSourceValidationResult = networkntCheckAndReturnDetails(datasourceTypesSchemaString, testDatasourceTypesJsonString);
+        ListDataSourceTypeTest dataSourceTypeTest = new ListDataSourceTypeTest();
+        dataSourceTypeTest.setValidationResult(dataSourceValidationResult);
+        dataSourceTypeTest.test();
+        log.debug("list_datasource_types validation results: " + dataSourceValidationResult);
+
+        log.info("ListFlights validation");
+        List<OutputUnit> listFlightsValidationResult = networkntCheckAndReturnDetails(listFlightsSchemaString, listFlightsTestString);
+        ListFlightsTest listFlightsTest = new ListFlightsTest();
+        listFlightsTest.setValidationResult(listFlightsValidationResult);
+        listFlightsTest.test();
+        log.debug("ListFlights validation results: " + listFlightsValidationResult);
     }
 
-//    private void vertxCheck(String dataSourceTypesString, String testdataSourceTypesString){
-//        JsonSchema dataSourceTypes =  JsonSchema.of(new JsonObject(dataSourceTypesString));
-//        OutputUnit result = Validator.create(dataSourceTypes,
-//                        new JsonSchemaOptions().setBaseUri(id).setDraft(Draft.DRAFT202012).setOutputFormat(Basic))
-//                .validate(new JsonObject(testdataSourceTypesString));
-//        System.out.println(result.toJson().encodePrettily());
-//    }
+    private static String getSchemaString(String name) throws IOException {
+        switch (name) {
+            case "ListFlights":
+                URL listFlightsSchemaURL = Resources.getResource("schemas/flight_asset_descriptor.schema.json");
+                return Resources.toString(listFlightsSchemaURL, StandardCharsets.UTF_8);
+            case "DatasourceTypes":
+                URL datasourceTypesSchemaURL = Resources.getResource("schemas/datasource_types.schema.json");
+                return Resources.toString(datasourceTypesSchemaURL, StandardCharsets.UTF_8);
+            default:
+                return null;
+        }
+    }
 
-    private static void networkntCheck(String schemaString, String jsonString) throws JsonProcessingException {
+    private static TestCaseGroup getTestCaseGroup(String name) {
+        switch (name) {
+            case "ListFlights":
+                return new ListFlightsTest();
+            case "DatasourceTypes":
+                return new ListDataSourceTypeTest();
+            default:
+                return null;
+        }
+    }
+
+    private static List<OutputUnit> networkntCheckAndReturnDetails(String validationSchema, String json) throws JsonProcessingException {
         JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012);
         SchemaValidatorsConfig config = new SchemaValidatorsConfig();
         config.setPathType(PathType.JSON_POINTER);
-        config.setFormatAssertionsEnabled(true);
         //config.setApplyDefaultsStrategy(new ApplyDefaultsStrategy(true, true, true) );
-        JsonSchema schema = jsonSchemaFactory.getSchema(schemaString,config);
-        OutputUnit outputUnit  = schema.validate(jsonString, InputFormat.JSON, OutputFormat.LIST, executionContext -> {
+        JsonSchema schema = jsonSchemaFactory.getSchema(validationSchema, config);
+        OutputUnit outputUnit = schema.validate(json, InputFormat.JSON, OutputFormat.LIST, executionContext -> {
             // By default since Draft 2019-09 the format keyword only generates annotations and not assertions
+            executionContext.getExecutionConfig().setFormatAssertionsEnabled(true);
             executionContext.getExecutionConfig().setAnnotationCollectionEnabled(true);
             executionContext.getExecutionConfig().setAnnotationCollectionFilter(keyword -> true);
         });
-        //List<OutputUnit> outputUnits = outputUnit.getDetails();
-       // outputUnits.sort(Comparator.comparing(OutputUnit::getInstanceLocation));
-        System.out.println(outputUnit);
+        return outputUnit.getDetails();
     }
 }
