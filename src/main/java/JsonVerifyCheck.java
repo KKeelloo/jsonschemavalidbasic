@@ -25,31 +25,31 @@ public class JsonVerifyCheck {
 
         if (args.length >= 2) {
 
-            Path jsonPath = Path.of(args[1]);
+            Path jsonPath = Path.of(args[2]);
             String jsonString = Files.readString(jsonPath);
 
-            TestCaseGroup listFlightsTest = getTestCaseGroup(args[0]);
+            TestCaseGroup listFlightsTest = getTestCaseGroup(args[1]);
             if (listFlightsTest == null) {
                 System.out.println("Incorrect test case group name");
                 return;
             }
 
-            String schemaString = getSchemaString(args[0]);
+            String schemaString = getSchemaString(args[1]);
             List<OutputUnit> validationResult = networkntCheckAndReturnDetails(schemaString, jsonString);
-            log.info(args[0] + " validation");
+            log.info(args[1] + " validation");
             listFlightsTest.setValidationResult(validationResult);
             listFlightsTest.test();
-            log.debug(args[0] + validationResult);
+            log.debug(args[1] + validationResult);
             return;
         }
 
         //If no arguments passed get files from resources
         String datasourceTypesSchemaString = getSchemaString("DatasourceTypes");
-        URL testDatasourceTypesJsonURL = Resources.getResource("test_datasource_invalid.json");
+        URL testDatasourceTypesJsonURL = Resources.getResource("test_datasource.json");
         String testDatasourceTypesJsonString = Resources.toString(testDatasourceTypesJsonURL, StandardCharsets.UTF_8);
 
         String listFlightsSchemaString = getSchemaString("ListFlights");
-        URL listFlightsTestURL = Resources.getResource("test_list_flights_invalid.json");
+        URL listFlightsTestURL = Resources.getResource("test_list_flights.json");
         String listFlightsTestString = Resources.toString(listFlightsTestURL, StandardCharsets.UTF_8);
 
         log.info("DatasourceTypes validation");
